@@ -1,0 +1,61 @@
+<input type="text"  placeholder="Enter username" style="margin-left: 70%;margin-top: 2%;margin-right: 2%;" [(ngModel)]="username">
+<button class="btn  btn-outline-primary" (click)="open()">search</button>
+<div class="profile">
+    <div class="left">
+        <div class="pic">
+            <img [src]="datas.avatar_url" alt="">
+        </div>
+        <div class="url">
+            <a href="{{datas.html_url}}"  >{{datas.html_url}}</a>
+        </div>
+    </div>
+    <div class="details">
+        <h1>{{datas.name}}</h1>
+        <p>
+            {{datas.bio}}
+        </p>
+        <div class="location">
+            <img src="/assets/location-dot-solid.svg" alt="">
+            <p>{{datas.location}}</p>
+        </div>
+    </div>
+</div>
+
+<div class="repos">
+    <div class="reposi" *ngIf="check(repos.length-(10*page));then tenblk else lessblk"></div>
+        <ng-template #tenblk>
+            <div class="repo" *ngFor="let i of [0,1,2,3,4,5,6,7,8,9]">
+                
+                    <h3 >{{repos[i+(10*(page-1))].name}}</h3>
+                        <p>{{repos[i+(10*(page-1))].description}}</p>
+                    
+                        <p class="btn btn-sm btn-primary" >{{repos[i+(10*(page-1))].language}}</p>
+                
+            </div>
+        </ng-template>
+        <ng-template #lessblk>
+            <div class="repo" *ngFor="let i of counter(repos.length-(10*(page-1)))">
+                
+                    <h3 >{{repos[i+(10*(page-1))].name}}</h3>
+                        <p>{{repos[i+(10*(page-1))].description}}</p>
+                    
+                        <p class="btn btn-sm btn-primary" >{{repos[i+(10*(page-1))].language}}</p>
+              
+            </div>
+        </ng-template>
+    
+    
+</div>
+<pre></pre>
+<ngb-pagination  class="d-flex justify-content-center" [collectionSize]="((repos.length/10))*10" [(page)]="page" aria-label="Default pagination"></ngb-pagination>
+
+
+<!-- <div class="repo" *ngFor="let i of counter()">
+    <div class="check" *ngIf=" repos[i+(10*(page-1))].name!='' ">
+        <h3 >{{repos[i+(10*(page-1))].name}}</h3>
+            <p>{{repos[i+(10*(page-1))].description}}</p>
+          
+            <p class="btn btn-sm btn-primary" >{{repos[i+(10*(page-1))].language}}</p>
+    </div>
+   
+</div> -->
